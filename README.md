@@ -1,5 +1,3 @@
-FORMAT: 1A
-
 # Outbound API
 Put a description about Outbound and/or the API here.
 
