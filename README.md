@@ -1,5 +1,10 @@
 # Outbound API
-Put a description about Outbound and/or the API here.
+Outbound sends automated email, SMS, phone calls and push notifications based on the actions users take or do not take in your app. The Outbound API has two components: 
+
+1. Identify each of your users and their attributes using an identify API call.
+2. Track the actions that each user takes in your app using a track API call.
+
+Because every message is associated with a user (identify call) and a specific trigger action that a user took or should take (track call), Outbound is able to keep track of how each message affects user actions in your app. These calls also allow you to target campaigns and customize each message based on user data.
 
 ## Authentication
 For all server-to-server communication, *Outbound API* uses HTTP headers for authorization. For each API request made, the `X-Outbound-Key` header should be set and contain your environment's private API key.
