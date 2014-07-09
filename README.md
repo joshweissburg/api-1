@@ -6,7 +6,7 @@ Outbound sends automated email, SMS, phone calls and push notifications based on
 
 Because every message is associated with a user (identify call) and a specific trigger action that a user took or should take (track call), Outbound is able to keep track of how each message affects user actions in your app. These calls also allow you to target campaigns and customize each message based on user data.
 
-Example: When a user in *san francisco*(user attribute) does *signup*(event) but does not *upload a picture*(event) within *2 weeks*, send them an email about how they'll benefit from uploading a picture.
+Example: When a user in *San Francisco*(user attribute) does *signup*(event) but does not *upload a picture*(event) within *2 weeks*, send them an email about how they'll benefit from uploading a picture.
 
 ## Authentication
 For all server-to-server communication, *Outbound API* uses HTTP headers for authorization. For each API request made, the `X-Outbound-Key` header should be set and contain your environment's private API key.
@@ -51,7 +51,7 @@ The `attributes` parameter of the */identify* call is an optional hash/map/dicti
 200/OK
 
 # Events
-You can track unlimited events using the *Outbound API*. Any event you send can be used a trigger event for a message or the goal event of a desired user flow which triggers a message when not completed within a set period of time. 
+You can track unlimited events using the *Outbound API*. Any event you send can be used as a trigger event for a message or the goal event of a desired user flow which triggers a message when not completed within a set period of time. 
 
 Example: Following the example from the previous sections, the *"signup"* event acts as a campaign trigger. If the user does not do the desired goal event, *"upload a picture"* in 2 weeks, Outbound sends your reminder message.
 
