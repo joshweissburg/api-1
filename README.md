@@ -51,13 +51,13 @@ The `attributes` parameter of the */identify* call is an optional hash/map/dicti
 200/OK
 
 # Events
-You can track unlimited events using the *Outbound API*. Any event you send can be used a trigger event for a message or the goal event of a desired user flow which triggers an event when not completed within a set period of time. 
+You can track unlimited events using the *Outbound API*. Any event you send can be used a trigger event for a message or the goal event of a desired user flow which triggers a message when not completed within a set period of time. 
 
-Example: Following the example from the previous sections, the *"signup"* event acts like a campaign trigger, and if the user does not do the desired goal event *"upload a picture"* in 2 weeks, we send them a message encouraging them to share a smile.
+Example: Following the example from the previous sections, the *"signup"* event acts as a campaign trigger. If the user does not do the desired goal event, *"upload a picture"* in 2 weeks, Outbound sends your reminder message.
 
 The `properties` parameter of the */track* call is an optional hash/map/dictionary/object of free-form properties you want to track for the event. It may contain nested fields and fields can be of any type.
 
-Example: `properties` is metadata like the `timestamp` of the *"signup"*" event, the `resolution` of the picture uploaded in the *"upload a picture"* event and so forth. 
+Example: `properties` can be metadata of the event. For example `timestamp` could be a property of the *"signup"* event and `photo resolution` could be a property of the *"upload a picture"* event. 
 
 ## Track an Event
 ### Request
