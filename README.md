@@ -1,5 +1,5 @@
 # Outbound API
-Outbound sends automated email, SMS, phone calls and push notifications based on the actions users take or do not take in your app. The Outbound API has two components: 
+Outbound sends automated email, SMS, phone calls and push notifications based on the actions users take or do not take in your app. The Outbound API has two components:
 
 1. Identify each of your users and their attributes using an identify API call.
 2. Track the actions that each user takes in your app using a track API call.
@@ -50,14 +50,42 @@ The `attributes` parameter of the */identify* call is an optional hash/map/dicti
 ### Response
 200/OK
 
+## Batch Identify
+A batch identify call is used to identify multiple users at once. This call should only be used when initially setting up Outbound integration and you need to identify all of your existing users.
+
+There is a limit of 100 users per batch identify call.
+
+### Request
+
+        POST https://api.outbound.io/v2/identify/batch
+        Content-type: application/json
+        X-Outbound-Key: YOUR_API_KEY
+        {
+            users: [
+                {
+                    user_id: "The unique identifier used to identify this user", //Required
+                    first_name: "The user's first name",  // Optional
+                    last_name: "The user's last name",  // Optional
+                    email: "The user's email address", // Optional - required to send emails
+                    apns: ["An array of the user's iOS device tokens"],  // Optional - required to send iOS notifications
+                    gcm: ["An array of the user's Android device tokens"],  // Optional - required to send android notifications
+                    phone_number: "The user's phone number",  // Optional - required to send sms or make phone calls
+                    attributes: { } // Other optional information about the user you want to use in messages.
+                }
+            ]
+        }
+
+### Response
+200/OK
+
 # Events
-You can track unlimited events using the *Outbound API*. Any event you send can be used as a trigger event for a message or the goal event of a desired user flow which triggers a message when not completed within a set period of time. 
+You can track unlimited events using the *Outbound API*. Any event you send can be used as a trigger event for a message or the goal event of a desired user flow which triggers a message when not completed within a set period of time.
 
 Example: Following the example from the previous sections, the *"signup"* event acts as a campaign trigger. If the user does not do the desired goal event, *"upload a picture"* in 2 weeks, Outbound sends your reminder message.
 
 The `properties` parameter of the */track* call is an optional hash/map/dictionary/object of free-form properties you want to track for the event. It may contain nested fields and fields can be of any type.
 
-Example: `properties` can be metadata of the event. For example `timestamp` could be a property of the *"signup"* event and `photo resolution` could be a property of the *"upload a picture"* event. 
+Example: `properties` can be metadata of the event. For example `timestamp` could be a property of the *"signup"* event and `photo resolution` could be a property of the *"upload a picture"* event.
 
 ## Track an Event
 ### Request
