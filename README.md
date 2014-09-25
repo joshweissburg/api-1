@@ -50,34 +50,6 @@ The `attributes` parameter of the */identify* call is an optional hash/map/dicti
 ### Response
 200/OK
 
-## Batch Identify
-A batch identify call is used to identify multiple users at once. This call should only be used when initially setting up Outbound integration and you need to identify all of your existing users.
-
-There is a limit of 100 users per batch identify call.
-
-### Request
-
-        POST https://api.outbound.io/v2/identify/batch
-        Content-type: application/json
-        X-Outbound-Key: YOUR_API_KEY
-        {
-            users: [
-                {
-                    user_id: "The unique identifier used to identify this user", //Required
-                    first_name: "The user's first name",  // Optional
-                    last_name: "The user's last name",  // Optional
-                    email: "The user's email address", // Optional - required to send emails
-                    apns: ["An array of the user's iOS device tokens"],  // Optional - required to send iOS notifications
-                    gcm: ["An array of the user's Android device tokens"],  // Optional - required to send android notifications
-                    phone_number: "The user's phone number",  // Optional - required to send sms or make phone calls
-                    attributes: { } // Other optional information about the user you want to use in messages.
-                }
-            ]
-        }
-
-### Response
-200/OK
-
 # Events
 You can track unlimited events using the *Outbound API*. Any event you send can be used as a trigger event for a message or the goal event of a desired user flow which triggers a message when not completed within a set period of time.
 
@@ -102,4 +74,35 @@ Example: `properties` can be metadata of the event. For example `timestamp` coul
 ### Response
 200/OK
 
-Please feel free to contact [support@outbound.io](mailto:support@outbound.io?subject=Reg API documentation) for any further information.
+## Register/Disable Device Token
+If you have a mobile app and want to send push notifications, you can register and disable the device tokens for the user individually of an `identify` call. When you register a token you are telling Outbound to send notifications to that token. When you disable a token you are telling Outbound not to send notifications to that token. A single user can have multiple tokens for each platform (APNS vs GCM). When Outbound sends a push notification all active notifications will receive the notification.
+
+The sample here uses APNS (Apple Push Notification Service - iOS) as an example. Anywhere you see "apns" you can replace it with "gcm" if you have tokens for an Android device.
+
+### Register Request
+
+        POST https://api.outbound.io/v2/apns/register
+        Content-type: application/json
+        X-Outbound-Key: YOUR_API_KEY
+        {
+            user_id: "The unique identifier used to identify this user", //Required
+            token: "The device token to register" //Required
+        }
+
+### Disable Request
+
+        POST https://api.outbound.io/v2/apns/disable
+        Content-type: application/json
+        X-Outbound-Key: YOUR_API_KEY
+        {
+            user_id: "The unique identifier used to identify this user", //Required
+            token: "The device token to disable" // Required
+        }
+
+
+### Response
+200/OK
+
+**IMPORTANT** If you send device tokens in `identify` calls, that is equivalent to making `register` calls for the tokens. Regardless of the current state of a token, if you send it in an `identify`, it will become active again and Outbound and will attempt to send push notifications to it. It is highly recommended that if you want to disable tokens, you should not send tokens in `identify` calls and use the `register` and `disable` endpoints to manage the state of your tokens.
+
+Please feel free to contact [support@outbound.io](mailto:support@outbound.io?subject=API documentation) for any further information.
