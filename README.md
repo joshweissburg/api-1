@@ -75,7 +75,7 @@ Example: `properties` can be metadata of the event. For example `timestamp` coul
 200/OK
 
 ## Register/Disable Device Token
-If you have a mobile app and want to send push notifications, you can register and disable the device tokens for the user individually of an `identify` call. When you register a token you are telling Outbound to send notifications to that token. When you disable a token you are telling Outbound not to send notifications to that token. A single user can have multiple tokens for each platform (APNS vs GCM). When Outbound sends a push notification all active notifications will receive the notification.
+If you have a mobile app and want to send push notifications, you can register and disable the device tokens for the user individually in an `identify` call. When you register a token you are telling Outbound to send notifications to that token. When you disable a token you are telling Outbound not to send notifications to that token. A single user can have multiple tokens for each platform (APNS or GCM). When Outbound sends a push notification all active tokens will receive the notification.
 
 The sample here uses APNS (Apple Push Notification Service - iOS) as an example. Anywhere you see "apns" you can replace it with "gcm" if you have tokens for an Android device.
 
